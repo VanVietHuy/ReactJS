@@ -1,16 +1,16 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
-const Home = () => {
+const App = () => {
   return (
     <>
       <nav>
         <ul>
           <li>
-            <Link to="/"></Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/usememo">UseMemo</Link>
+            <Link to="/blogs">Blogs</Link>
           </li>
         </ul>
       </nav>
@@ -19,4 +19,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default App;
