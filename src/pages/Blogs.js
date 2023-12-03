@@ -1,23 +1,26 @@
-import React from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import UseMemo from "./UseMemo";
 
 function Blogs() {
-  const [count, setCount] = useState(0);
+  const [users, setUsers] = useState([]);
+  const getData = useCallback((type) => {
+    return fetch(`https://reqres.in/api/${type}`)
+  },[])
   const handleClick = () => {
-    setCount(count + 1);
-  };
-  const handleDelete = () => {
-    setCount(0);
-  };
-  console.log('count');
-  return (
-    <div>
-      <UseMemo />
-      <h1>{count}</h1>
-      <button onClick={handleClick}>Click me!</button>
-      <button onClick={handleDelete}>Delete</button>
-    </div>
+    getData('users')
+    .then(res => res.json())
+    .then(res => {
+      const users = res.data;
+      setUsers(users);
+    })
+  }
+  return ( 
+    <>
+      {/* <p>Data:</p> */}
+      <button onClick={handleClick}>Get Users Data</button>
+       <p>{JSON.stringify(users)}</p> {/* convert method thành string */}
+      <UseMemo getData={getData} />
+    </>
   );
 }
 

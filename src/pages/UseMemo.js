@@ -1,11 +1,24 @@
+import React, { useState, useEffect } from "react";
+function UseMemo({ getData }) {
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    console.log("Child Component -useEffect - getData");
 
-
-import { memo} from 'react'
-console.log('memo');
-function UseMemo() {
+    getData("users")
+      .then((res) => res.json())
+      .then((res) => {
+        const comments = res.data;
+        setComments(comments);
+      });
+  }, [getData]);
   return (
-    <h1>Hello World !</h1>
-  )
+    <>
+      <div>
+        <p>Child Component</p>
+        <p>{JSON.stringify(comments)}</p>
+      </div>
+    </>
+  );
 }
 
-export default memo(UseMemo)
+export default UseMemo;
